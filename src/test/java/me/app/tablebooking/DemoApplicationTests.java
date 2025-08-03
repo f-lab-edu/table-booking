@@ -1,4 +1,4 @@
-package com.example.demo;
+package me.app.tablebooking;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
