@@ -3,10 +3,10 @@ package me.app.tablebooking.application.domain.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import jakarta.annotation.PostConstruct;
 import java.util.Base64;
 import java.util.Date;
 
@@ -15,9 +15,9 @@ public class JwtTokenProvider {
 
     @Value("${jwt.secret}")
     private String secretKeyRaw;
+    private final long tokenValidityInMs = 1000 * 60 * 60 * 2; // 2시간
 
     private String secretKey;
-    private final long tokenValidityInMs = 1000 * 60 * 60 * 2; // 2시간
 
     @PostConstruct
     public void init() {
@@ -52,3 +52,4 @@ public class JwtTokenProvider {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 }
+
