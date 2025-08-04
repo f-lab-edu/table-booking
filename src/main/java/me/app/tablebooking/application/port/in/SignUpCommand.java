@@ -8,6 +8,6 @@ public record SignUpCommand(
         @NotBlank String password,
         @NotBlank String name,
         @NotBlank String phoneNumber,
-        Type type
+        @NotBlank Type type
 ) {
 }
