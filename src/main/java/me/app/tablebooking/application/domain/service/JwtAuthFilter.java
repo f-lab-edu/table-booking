@@ -5,7 +5,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import me.app.tablebooking.adapter.out.persistence.MemberEntity;
 import me.app.tablebooking.application.domain.model.Member;
 import me.app.tablebooking.application.port.out.MemberPort;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,7 +35,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 Member member = memberPort.findByUsername(username);
                 if (member != null) {
                     UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                            member, null, List.of(new SimpleGrantedAuthority(member.getType().name()))
+                            member, null, List.of(new SimpleGrantedAuthority(member.getMemberRole().name()))
                     );
                     SecurityContextHolder.getContext().setAuthentication(auth);
                 }

@@ -1,6 +1,6 @@
 package me.app.tablebooking.application.service;
 
-import me.app.tablebooking.application.domain.model.Type;
+import me.app.tablebooking.application.domain.model.MemberRole;
 import me.app.tablebooking.application.domain.service.MemberService;
 import me.app.tablebooking.application.port.in.SignUpCommand;
 import me.app.tablebooking.application.port.out.MemberPort;
@@ -37,7 +37,7 @@ class MemberServiceTest {
                 "plainPass",
                 "john",
                 "010-1234-5678",
-                Type.CUSTOMER
+                MemberRole.CUSTOMER
         );
         String encodedPassword = "hashedPass";
 
@@ -51,7 +51,7 @@ class MemberServiceTest {
         verify(memberPort).save(argThat(member ->
                 member.getUsername().equals("johndoe") &&
                         member.getPassword().equals("hashedPass") &&
-                        member.getType() == Type.CUSTOMER &&
+                        member.getMemberRole() == MemberRole.CUSTOMER &&
                         member.getName().equals("John") &&
                         member.getPhoneNumber().equals("01012345678") &&
                         member.getId() == null
@@ -66,7 +66,7 @@ class MemberServiceTest {
                 "plainPass",
                 "john",
                 "010-1234-5678",
-                Type.CUSTOMER
+                MemberRole.CUSTOMER
         );
         when(passwordEncoder.encode("plainPass")).thenReturn("hashedPass");
         doThrow(new DataIntegrityViolationException("duplicate")).when(memberPort).save(any());

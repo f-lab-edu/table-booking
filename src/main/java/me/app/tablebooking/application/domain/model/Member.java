@@ -11,10 +11,21 @@ public class Member {
     private Long id;
     private String username;
     private String password;
-    private Type type;
+    private MemberRole memberRole;
     private String name;
     private String phoneNumber;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+
+    public static Member withoutId(
+                                    String username,
+                                    String password,
+                                    MemberRole memberRole,
+                                    String name,
+                                    String phoneNumber,
+                                    LocalDateTime createdAt,
+                                    LocalDateTime modifiedAt){
+        return new Member(null, username, password, memberRole, name, phoneNumber, createdAt, modifiedAt);
+    }
 
 }

@@ -9,13 +9,13 @@ import org.apache.ibatis.annotations.Select;
 public interface MemberMapper {
 
     @Insert("""
-                INSERT INTO member (username, password, type, name, phone_number, created_at, modified_at)
-                VALUES (#{username}, #{password}, #{type}, #{name}, #{phoneNumber}, #{createdAt}, #{modifiedAt})
+                INSERT INTO member (username, password, member_role, name, phone_number, created_at, modified_at)
+                VALUES (#{username}, #{password}, #{memberRole}, #{name}, #{phoneNumber}, #{createdAt}, #{modifiedAt})
             """)
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(MemberEntity member);
 
-    @Select("SELECT * FROM member WHERE username = #{username}")
+    @Select("SELECT id, username, password, member_role as memberRole, name, phone_number as phoneNumber, created_at as createdAt, modified_at as modifiedAt FROM member WHERE username = #{username}")
     MemberEntity findByUsername(String username);
 
 }

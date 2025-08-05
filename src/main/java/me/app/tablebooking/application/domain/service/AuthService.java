@@ -8,8 +8,10 @@ import me.app.tablebooking.application.port.out.MemberPort;
 import me.app.tablebooking.common.exception.InvalidCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class AuthService implements LoginUseCase {
     private final MemberPort memberPort;
@@ -23,7 +25,7 @@ public class AuthService implements LoginUseCase {
             throw new InvalidCredentialsException();
         }
 
-        String token = jwtTokenProvider.createToken(member.getUsername(), member.getType().name());
+        String token = jwtTokenProvider.createToken(member.getUsername(), member.getMemberRole().name());
         return token;
     }
 }

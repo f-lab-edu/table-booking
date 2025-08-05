@@ -9,10 +9,12 @@ import me.app.tablebooking.common.exception.DuplicatedUsernameException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class MemberService implements SignUpUseCase {
     private final MemberPort memberPort;
@@ -22,11 +24,10 @@ public class MemberService implements SignUpUseCase {
     public void signUp(SignUpCommand command) {
         String encoded = passwordEncoder.encode(command.password());
 
-        Member member = new Member(
-                null,
+        Member member = Member.withoutId(
                 command.username(),
                 encoded,
-                command.type(),
+                command.memberRole(),
                 command.name(),
                 command.phoneNumber(),
                 LocalDateTime.now(),

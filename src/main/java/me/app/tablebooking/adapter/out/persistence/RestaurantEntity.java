@@ -3,21 +3,22 @@ package me.app.tablebooking.adapter.out.persistence;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.app.tablebooking.application.domain.model.MemberRole;
+import me.app.tablebooking.application.domain.model.Category;
+import me.app.tablebooking.application.domain.model.PriceRange;
 
 import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MemberEntity {
+public class RestaurantEntity {
     private Long id;
-    private String username;
-    private String password;
-    private MemberRole memberRole;
-    private String name;
+    private Long memberId;
+    private Category category;
+    private PriceRange priceRange;
+    private String content;
+    private String location;
     private String phoneNumber;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-
 }

@@ -2,7 +2,7 @@ package me.app.tablebooking.adapter.in.web;
 
 import lombok.RequiredArgsConstructor;
 import me.app.tablebooking.adapter.in.web.request.SignUpRequest;
-import me.app.tablebooking.application.domain.model.Type;
+import me.app.tablebooking.application.domain.model.MemberRole;
 import me.app.tablebooking.application.port.in.SignUpCommand;
 import me.app.tablebooking.application.port.in.SignUpUseCase;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ public class MemberController {
                 request.getPassword(),
                 request.getName(),
                 request.getPhoneNumber(),
-                Type.valueOf(request.getType().toUpperCase())
+                MemberRole.valueOf(request.getType().toUpperCase())
         );
         signUpUseCase.signUp(command);
         return ResponseEntity.ok("회원 가입이 완료되었습니다. ");

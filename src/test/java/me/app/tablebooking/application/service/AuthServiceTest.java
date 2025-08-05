@@ -1,7 +1,7 @@
 package me.app.tablebooking.application.service;
 
 import me.app.tablebooking.application.domain.model.Member;
-import me.app.tablebooking.application.domain.model.Type;
+import me.app.tablebooking.application.domain.model.MemberRole;
 import me.app.tablebooking.application.domain.service.AuthService;
 import me.app.tablebooking.application.domain.service.JwtTokenProvider;
 import me.app.tablebooking.application.port.in.LoginCommand;
@@ -36,7 +36,7 @@ class AuthServiceTest {
         String username = "john";
         String rawPassword = "password123";
         String encodedPassword = "encoded";
-        Member member = new Member(1L, username, encodedPassword, Type.CUSTOMER, "John", "01012345678", null, null);
+        Member member = new Member(1L, username, encodedPassword, MemberRole.CUSTOMER, "John", "01012345678", null, null);
 
         LoginCommand command = new LoginCommand(username, rawPassword);
 
@@ -72,7 +72,7 @@ class AuthServiceTest {
         String rawPassword = "wrongpass";
         String encodedPassword = "encoded";
 
-        Member member = new Member(1L, username, encodedPassword, Type.CUSTOMER, "John", "01012345678", null, null);
+        Member member = new Member(1L, username, encodedPassword, MemberRole.CUSTOMER, "John", "01012345678", null, null);
 
         when(memberPort.findByUsername(username)).thenReturn(member);
         when(passwordEncoder.matches(rawPassword, encodedPassword)).thenReturn(false);
