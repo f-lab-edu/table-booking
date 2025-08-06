@@ -1,5 +1,6 @@
 package me.app.tablebooking.adapter.out.persistence;
 
+import me.app.tablebooking.application.domain.model.Image;
 import me.app.tablebooking.application.domain.model.Restaurant;
 import me.app.tablebooking.application.domain.model.Member;
 import org.springframework.stereotype.Component;
@@ -8,18 +9,18 @@ import org.springframework.stereotype.Component;
 public class RestaurantEntityMapper {
 
     public RestaurantEntity toEntity(Restaurant restaurant) {
-        return new RestaurantEntity(
-                restaurant.getId(),
-                restaurant.getMember().getId(),
-                restaurant.getCategory(),
-                restaurant.getPriceRange(),
-                restaurant.getContent(),
-                restaurant.getLocation(),
-                restaurant.getPhoneNumber(),
-                restaurant.getCreatedAt(),
-                restaurant.getModifiedAt()
-        );
+        RestaurantEntity entity = new RestaurantEntity();
+        entity.setMemberId(restaurant.getMember().getId());
+        entity.setCategory(restaurant.getCategory());
+        entity.setPriceRange(restaurant.getPriceRange());
+        entity.setContent(restaurant.getContent());
+        entity.setLocation(restaurant.getLocation());
+        entity.setPhoneNumber(restaurant.getPhoneNumber());
+        entity.setCreatedAt(restaurant.getCreatedAt());
+        entity.setModifiedAt(restaurant.getModifiedAt());
+        return entity;
     }
+
 
     public Restaurant toDomain(RestaurantEntity entity, Member member) {
         return Restaurant.withId(
@@ -32,6 +33,12 @@ public class RestaurantEntityMapper {
                 entity.getPhoneNumber(),
                 entity.getCreatedAt(),
                 entity.getModifiedAt()
+        );
+    }
+
+    public ImageEntity toEntity(Image image){
+        return new ImageEntity(
+                null, image.getUrl(), image.getRestaurant().getId()
         );
     }
 }

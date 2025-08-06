@@ -9,7 +9,6 @@ import me.app.tablebooking.application.domain.model.PriceRange;
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class RestaurantEntity {
     private Long id;

@@ -2,10 +2,12 @@ spring:
   config:
     import: application-secret.yml
   datasource:
-    url: jdbc:mysql://localhost:3306/test
+    url: jdbc:mysql://localhost:3306/test?allowMultiQueries=true
     username: user
     password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      auto-commit: false #True 일 떄 @Transactional 어노테이션 무시되고 각 SQL이 개별 트랜잭션으로 실행된다. 롤백 불가능, 데이터 일관성 보장 안됨.
 logging:
   level:
     root: INFO

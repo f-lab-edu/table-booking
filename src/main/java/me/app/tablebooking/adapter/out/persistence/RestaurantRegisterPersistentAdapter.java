@@ -1,6 +1,7 @@
 package me.app.tablebooking.adapter.out.persistence;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import me.app.tablebooking.application.domain.model.Image;
 import me.app.tablebooking.application.domain.model.Restaurant;
 import me.app.tablebooking.application.port.out.ImageSavePort;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class RestaurantRegisterPersistentAdapter implements ImageSavePort, RestaurantRegisterPort {
@@ -28,12 +30,10 @@ public class RestaurantRegisterPersistentAdapter implements ImageSavePort, Resta
 
     @Override
     public void saveAll(List<Image> images) {
-        images.forEach(image -> {
-            ImageEntity entity = new ImageEntity();
-            entity.setUrl(image.getUrl());
-            entity.setRestaurantId(image.getRestaurant().getId());
-            imageMapper.insert(entity);
-        });
-    }
+        List<ImageEntity> entities = images.stream()
+                .map(image ->  restaurantEntityMapper.toEntity(image))
+                .collect(Collectors.toList());
 
+        imageMapper.insertAll(entities);
+    }
 }
